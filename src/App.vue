@@ -1,17 +1,39 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <volume/>
+    <Network/>
+    <AuxiliaryFunction/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Volume from './components/Volume'
+import Network from './components/Network'
+import AuxiliaryFunction from './components/AuxiliaryFunction'
 
 export default {
   name: 'App',
+  created() {
+		//在页面加载时读取sessionStorage里的状态信息
+		if (sessionStorage.getItem('store')) {
+			this.$store.replaceState(
+				Object.assign(
+					{},
+					this.$store.state,
+					JSON.parse(sessionStorage.getItem('store'))
+				)
+			)
+		}
+
+		//在页面刷新时将vuex里的信息保存到sessionStorage里
+		window.addEventListener('beforeunload', () => {
+			sessionStorage.setItem('store', JSON.stringify(this.$store.state))
+		})
+	},
   components: {
-    HelloWorld
+    Volume,
+    Network,
+    AuxiliaryFunction
   }
 }
 </script>
