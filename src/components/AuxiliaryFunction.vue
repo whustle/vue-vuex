@@ -20,11 +20,15 @@ export default {
         ipAlias() {
             return '192.168.1.1'
         },
+        // 辅助函数 mapState
         ...mapState(['rootState']),
+        // 辅助函数 mapGetters
         ...mapGetters(['ip', 'port'])
     },
     methods: {
+        // 辅助函数 mapMutations
         ...mapMutations(['setIp', 'setPort']),
+        // 辅助函数 mapActions
         ...mapActions(['asyncSetIp', 'asyncSetPort']),
         updateIp() {
             this.setIp('192.168.1.109')
